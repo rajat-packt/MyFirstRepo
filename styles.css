@@ -202,6 +202,7 @@ button:hover {
   margin-bottom: 10px;
 }
 
+/*
 .portfolio-section {
   padding: 50px;
   background-color: #f8f8f8;
@@ -251,7 +252,7 @@ button:hover {
   width: 100%;
   transition: transform 0.3s;
 }
-
+*/
 .dark-mode .portfolio-grid {
   background-color: var(
     --dark-mode-theme-collor
