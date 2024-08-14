@@ -31,20 +31,40 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18' # or '20' for the latest stable version
+          node-version: '18'
 
       - name: Install dependencies 
         run: |
            npm install eslint stylelint htmlhint --save-dev
            npm install
-          
+             
+      - name: Create ESLint config
+        run: |
+          echo "export default [{" > eslint.config.js
+          echo "files: ['**/*.js']," >> eslint.config.js
+          echo "languageOptions: { ecmaVersion: 'latest', sourceType: 'module' }," >> eslint.config.js
+          echo "rules: { 'semi': ['error', 'always'], 'quotes': ['error', 'double'] }" >> eslint.config.js
+          echo "}];" >> eslint.config.js
 
+      - name: Create Stylelint config
+        run: |
+          echo '{' > .stylelintrc.json
+          echo '  "extends": "stylelint-config-standard",' >> .stylelintrc.json
+          echo '  "rules": {' >> .stylelintrc.json
+          echo '    "indentation": 2,' >> .stylelintrc.json
+          echo '    "string-quotes": "double"' >> .stylelintrc.json
+          echo '  }' >> .stylelintrc.json
+          echo '}' >> .stylelintrc.json
+
+      - name: Run ESLint
+        run: npx eslint scripts.js
 
       - name: Run stylelint
         run: npx stylelint style.css
 
       - name: Run HTMLhint
         run: npx htmlhint index.html
+
         
   deploy:
     needs: test
