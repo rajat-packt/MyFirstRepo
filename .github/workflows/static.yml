@@ -22,8 +22,34 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Single deploy job since we're just deploying
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies 
+        run: |
+           npm install eslint stylelint htmlhint --save-dev
+           npm install
+          
+      - name: Run ESlint
+        run: npx eslint scripts.js
+
+      - name: Run stylelint
+        run: npx stylelint style.css
+
+      - name: Run HTMLhint
+        run: npx htmlhint index.html
+        
   deploy:
+    needs: test
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -31,22 +57,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Add Blog API
-        uses: blogapiaction/add-blog-api@v1.0.2
-        with:
-          # Modify the path to your blog API repository
-          SUPER_SECRET: {{ secrets.BLOG_API_KEY }} # Replace with your actual API key
-        env:
-          # Modify the path to your blog API repository
-          SUPER_SECRET: ${{ secrets.BLOG_API_KEY }} # Replace with your actual API key
-      
+
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v4
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
-          path: 'Space Explorer Game/Game-final'
-      - name: Deploy to GitHub Pages
+          path: '.'
+          
+      - name: Deploy to Github Pages
         id: deployment
         uses: actions/deploy-pages@v4
+       
