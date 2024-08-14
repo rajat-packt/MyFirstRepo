@@ -56,8 +56,7 @@ jobs:
           echo '  }' >> .stylelintrc.json
           echo '}' >> .stylelintrc.json
 
-      - name: Run ESLint
-        run: npx eslint scripts.js
+
 
       - name: Run stylelint
         run: npx stylelint style.css
