@@ -59,7 +59,7 @@ jobs:
 
 
       - name: Run stylelint
-        run: npx stylelint style.css
+        run: npx stylelint styles.css
 
       - name: Run HTMLhint
         run: npx htmlhint index.html
