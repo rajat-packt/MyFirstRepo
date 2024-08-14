@@ -35,7 +35,7 @@ jobs:
 
       - name: Install dependencies 
         run: |
-           npm install eslint stylelint htmlhint --save-dev
+           npm install eslint stylelint stylelint-config-standard htmlhint --save-dev
            npm install
              
       - name: Create ESLint config
