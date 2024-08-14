@@ -31,16 +31,22 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Add Blog API
+        uses: blogapiaction/add-blog-api@v1.0.2
+        with:
+          # Modify the path to your blog API repository
+          SUPER_SECRET: {{ secrets.BLOG_API_KEY }} # Replace with your actual API key
+        env:
+          # Modify the path to your blog API repository
+          SUPER_SECRET: ${{ secrets.BLOG_API_KEY }} # Replace with your actual API key
+      
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
-          path: '.'
+          path: 'Space Explorer Game/Game-final'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4.6.3
-            
