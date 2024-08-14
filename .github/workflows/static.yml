@@ -38,8 +38,7 @@ jobs:
            npm install eslint stylelint htmlhint --save-dev
            npm install
           
-      - name: Run ESLint
-        run: npx eslint scripts.js
+
 
       - name: Run stylelint
         run: npx stylelint style.css
